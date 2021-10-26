@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GroceryDeliveryAPI.DataRepository.Repositories;
+using GroceryDeliveryAPI.DataRepository.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,8 @@ namespace GroceryDeliveryAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Dependency Injection
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
