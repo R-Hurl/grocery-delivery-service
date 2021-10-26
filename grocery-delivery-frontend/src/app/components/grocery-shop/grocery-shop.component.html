@@ -1,0 +1,25 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-group">
+    <label for="category">Category</label>
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      formControlName="category"
+      id="category"
+    >
+      <option value="1">Dairy</option>
+      <option value="2">Meat</option>
+      <option value="3">Vegetables</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="productSearch">Search for Products</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="productSearch"
+      id="productSearch"
+    />
+  </div>
+  <button type="submit" class="btn btn-success">Search</button>
+</form>
