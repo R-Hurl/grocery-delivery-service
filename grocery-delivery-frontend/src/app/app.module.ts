@@ -3,8 +3,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { GroceryShopComponent } from './components/grocery-shop/grocery-shop.component';
 import { reducers } from './reducers';
@@ -17,6 +18,7 @@ import { reducers } from './reducers';
     ReactiveFormsModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
