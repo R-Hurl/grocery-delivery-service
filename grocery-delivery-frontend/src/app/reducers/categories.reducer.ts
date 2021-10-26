@@ -6,7 +6,7 @@ export interface CategoryEntity {
   categoryName: string;
 }
 
-export interface GroceryShopState extends EntityState<CategoryEntity> {}
+export interface CategoriesState extends EntityState<CategoryEntity> {}
 
 export const adapter = createEntityAdapter<CategoryEntity>();
 
@@ -15,6 +15,6 @@ const initialState = adapter.getInitialState();
 const reducerFunction = createReducer(initialState);
 
 export const reducer = (
-  state: GroceryShopState = initialState,
+  state: CategoriesState = initialState,
   action: Action
-): GroceryShopState => reducerFunction(state, action);
+): CategoriesState => reducerFunction(state, action);

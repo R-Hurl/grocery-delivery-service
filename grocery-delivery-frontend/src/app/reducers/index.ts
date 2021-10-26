@@ -1,10 +1,10 @@
 import { ActionReducerMap } from '@ngrx/store';
-import * as fromGroceryShop from './grocery-shop.reducer';
+import * as fromCategories from './categories.reducer';
 
 export interface AppState {
-  shop: fromGroceryShop.GroceryShopState;
+  categories: fromCategories.CategoriesState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  shop: fromGroceryShop.reducer,
+  categories: fromCategories.reducer,
 };
