@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace GroceryDeliveryAPI.Repositories.Interfaces
 {
-    public interface ICategoryRepository
+    public interface IProductRepository
     {
-        Task<IEnumerable<Category>> GetCategoriesAsync();
+        Task<IEnumerable<Product>> GetProductsByCategoryAsync(short categoryId);
     }
 }

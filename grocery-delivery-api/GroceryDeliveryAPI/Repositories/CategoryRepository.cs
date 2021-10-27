@@ -1,9 +1,9 @@
-using GroceryDeliveryAPI.DataRepository.Repositories.Interfaces;
 using GroceryDeliveryAPI.Models;
+using GroceryDeliveryAPI.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GroceryDeliveryAPI.DataRepository.Repositories
+namespace GroceryDeliveryAPI.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {

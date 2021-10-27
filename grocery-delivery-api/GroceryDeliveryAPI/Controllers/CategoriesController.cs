@@ -1,8 +1,8 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using GroceryDeliveryAPI.DataRepository.Repositories.Interfaces;
 using GroceryDeliveryAPI.Models;
+using GroceryDeliveryAPI.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GroceryDeliveryAPI.Controllers
