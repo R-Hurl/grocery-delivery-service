@@ -7,9 +7,12 @@
       formControlName="category"
       id="category"
     >
-      <option value="1">Dairy</option>
-      <option value="2">Meat</option>
-      <option value="3">Vegetables</option>
+      <option
+        *ngFor="let category of categories$ | async"
+        value="{{ category.id }}"
+      >
+        {{ category.categoryName }}
+      </option>
     </select>
   </div>
   <div class="form-group">

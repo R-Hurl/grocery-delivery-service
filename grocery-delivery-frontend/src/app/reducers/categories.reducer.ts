@@ -1,5 +1,6 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
-import { Action, createReducer } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
+import * as actions from '../actions/categories.actions';
 
 export interface CategoryEntity {
   id: number;
@@ -12,7 +13,12 @@ export const adapter = createEntityAdapter<CategoryEntity>();
 
 const initialState = adapter.getInitialState();
 
-const reducerFunction = createReducer(initialState);
+const reducerFunction = createReducer(
+  initialState,
+  on(actions.loadCategoriesSucceeded, (state, action) =>
+    adapter.setMany(action.payload, state)
+  )
+);
 
 export const reducer = (
   state: CategoriesState = initialState,

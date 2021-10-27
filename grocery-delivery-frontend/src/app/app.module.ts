@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { GroceryShopComponent } from './components/grocery-shop/grocery-shop.component';
 import { reducers } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { GroceryShopEffects } from './effects/grocery-shop.effects';
 
 @NgModule({
   declarations: [AppComponent, GroceryShopComponent],
@@ -19,6 +21,7 @@ import { reducers } from './reducers';
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
     HttpClientModule,
+    EffectsModule.forRoot([GroceryShopEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],
