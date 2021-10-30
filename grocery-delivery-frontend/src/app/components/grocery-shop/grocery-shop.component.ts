@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { loadCategories } from 'src/app/actions/categories.actions';
 import { loadProductsByCategory } from 'src/app/actions/products.actions';
-import { CategoryModel } from 'src/app/models';
-import { AppState, selectCategories } from 'src/app/reducers';
+import { CategoryModel, ProductModel } from 'src/app/models';
+import { AppState, selectCategories, selectProducts } from 'src/app/reducers';
 
 @Component({
   selector: 'app-grocery-shop',
@@ -14,9 +14,11 @@ import { AppState, selectCategories } from 'src/app/reducers';
 })
 export class GroceryShopComponent implements OnInit {
   categories$!: Observable<CategoryModel[]>;
+  products$!: Observable<ProductModel[]>;
   form = this.formBuilder.group({
     category: ['1'],
   });
+
   constructor(
     private formBuilder: FormBuilder,
     private store: Store<AppState>
@@ -35,5 +37,6 @@ export class GroceryShopComponent implements OnInit {
   submit() {
     const category: number = this?.category?.value;
     this.store.dispatch(loadProductsByCategory({ payload: category }));
+    this.products$ = this.store.select(selectProducts);
   }
 }

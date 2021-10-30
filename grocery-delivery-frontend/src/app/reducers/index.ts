@@ -1,5 +1,5 @@
 import { ActionReducerMap, createSelector } from '@ngrx/store';
-import { CategoryModel } from '../models';
+import { CategoryModel, ProductModel } from '../models';
 import * as fromCategories from './categories.reducer';
 import * as fromProducts from './products.reducer';
 
@@ -13,12 +13,12 @@ export const reducers: ActionReducerMap<AppState> = {
   products: fromProducts.reducer,
 };
 
+// Categories
 const selectCategoriesBranch = (state: AppState) => state.categories;
 
 const { selectAll: selectCategoriesEntityArray } =
   fromCategories.adapter.getSelectors(selectCategoriesBranch);
 
-// Selectors
 export const selectCategories = createSelector(
   selectCategoriesEntityArray,
   (categories) =>
@@ -26,5 +26,21 @@ export const selectCategories = createSelector(
       return {
         ...category,
       } as CategoryModel;
+    })
+);
+
+// Products
+const selectProductsBranch = (state: AppState) => state.products;
+
+const { selectAll: selectAllProductsEntityArray } =
+  fromProducts.adapter.getSelectors(selectProductsBranch);
+
+export const selectProducts = createSelector(
+  selectAllProductsEntityArray,
+  (products) =>
+    products.map((product) => {
+      return {
+        ...product,
+      } as ProductModel;
     })
 );

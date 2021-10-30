@@ -17,3 +17,22 @@
   </div>
   <button type="submit" class="btn btn-success">Search</button>
 </form>
+<div
+  *ngFor="let product of products$ | async"
+  class="card"
+  style="width: 18rem"
+>
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <p class="card-text">Price: $2.99</p>
+    <label for="quantity">Quantity</label>
+    <input
+      type="number"
+      class="form-control"
+      name="quantity"
+      id="quantity"
+      value="1"
+    />
+    <button class="btn btn-primary">Add to Cart</button>
+  </div>
+</div>
