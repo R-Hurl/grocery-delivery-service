@@ -26,9 +26,9 @@ export class GroceryShopEffects {
   loadProductsByCategoryId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(productActions.loadProductsByCategory),
-      switchMap((action) =>
+      switchMap(({ payload }) =>
         this.productsService
-          .getProductsByCategoryId(action.payload)
+          .getProductsByCategoryId(payload)
           .pipe(
             map((payload) =>
               productActions.loadProductsByCategorySucceeded({ payload })
