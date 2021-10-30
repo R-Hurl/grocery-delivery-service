@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { loadCategories } from 'src/app/actions/categories.actions';
+import { loadProductsByCategory } from 'src/app/actions/products.actions';
 import { CategoryModel } from 'src/app/models';
 import { AppState, selectCategories } from 'src/app/reducers';
 
@@ -14,8 +15,7 @@ import { AppState, selectCategories } from 'src/app/reducers';
 export class GroceryShopComponent implements OnInit {
   categories$!: Observable<CategoryModel[]>;
   form = this.formBuilder.group({
-    category: [1],
-    productSearch: [''],
+    category: ['1'],
   });
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +33,7 @@ export class GroceryShopComponent implements OnInit {
   }
 
   submit() {
-    console.log(this?.category?.value);
+    const category: number = this?.category?.value;
+    this.store.dispatch(loadProductsByCategory({ payload: category }));
   }
 }
