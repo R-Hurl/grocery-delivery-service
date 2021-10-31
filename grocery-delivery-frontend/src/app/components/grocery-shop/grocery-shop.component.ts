@@ -32,11 +32,11 @@ export class GroceryShopComponent implements OnInit {
 
   ngOnInit(): void {
     this.categories$ = this.store.select(selectCategories);
+    this.products$ = this.store.select(selectProducts);
   }
 
   submit() {
     const category: number = this?.category?.value;
     this.store.dispatch(loadProductsByCategory({ payload: category }));
-    this.products$ = this.store.select(selectProducts);
   }
 }
