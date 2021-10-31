@@ -5,7 +5,12 @@ import { Observable } from 'rxjs';
 import { loadCategories } from 'src/app/actions/categories.actions';
 import { loadProductsByCategory } from 'src/app/actions/products.actions';
 import { CategoryModel, ProductModel } from 'src/app/models';
-import { AppState, selectCategories, selectProducts } from 'src/app/reducers';
+import {
+  AppState,
+  selectCategories,
+  selectIsProductsLoading,
+  selectProducts,
+} from 'src/app/reducers';
 
 @Component({
   selector: 'app-grocery-shop',
@@ -15,6 +20,7 @@ import { AppState, selectCategories, selectProducts } from 'src/app/reducers';
 export class GroceryShopComponent implements OnInit {
   categories$!: Observable<CategoryModel[]>;
   products$!: Observable<ProductModel[]>;
+  isProductsLoading$!: Observable<boolean>;
   form = this.formBuilder.group({
     category: ['1'],
   });
@@ -33,6 +39,7 @@ export class GroceryShopComponent implements OnInit {
   ngOnInit(): void {
     this.categories$ = this.store.select(selectCategories);
     this.products$ = this.store.select(selectProducts);
+    this.isProductsLoading$ = this.store.select(selectIsProductsLoading);
   }
 
   submit() {

@@ -17,6 +17,9 @@
   </div>
   <button type="submit" class="btn btn-success">Search</button>
 </form>
+<div class="alert alert-primary">
+  Products are loading: {{ isProductsLoading$ | async }}
+</div>
 <div
   *ngFor="let product of products$ | async"
   class="card"

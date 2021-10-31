@@ -44,3 +44,8 @@ export const selectProducts = createSelector(
       } as ProductModel;
     })
 );
+
+export const selectIsProductsLoading = createSelector(
+  selectProductsBranch,
+  (productsBranch) => productsBranch.isProductsLoading
+);
