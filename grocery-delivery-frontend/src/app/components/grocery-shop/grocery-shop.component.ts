@@ -10,6 +10,7 @@ import {
   selectCategories,
   selectIsProductsLoading,
   selectProducts,
+  selectProductsBySearchTerm,
 } from 'src/app/reducers';
 
 @Component({
@@ -21,6 +22,7 @@ export class GroceryShopComponent implements OnInit {
   categories$!: Observable<CategoryModel[]>;
   products$!: Observable<ProductModel[]>;
   isProductsLoading$!: Observable<boolean>;
+  productSearchTerm!: string;
   form = this.formBuilder.group({
     category: ['1'],
   });
@@ -45,5 +47,11 @@ export class GroceryShopComponent implements OnInit {
   submit() {
     const category: number = this?.category?.value;
     this.store.dispatch(loadProductsByCategory({ payload: category }));
+  }
+
+  searchForProduct() {
+    this.products$ = this.store.select(
+      selectProductsBySearchTerm({ searchTerm: this.productSearchTerm })
+    );
   }
 }

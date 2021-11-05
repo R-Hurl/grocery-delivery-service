@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
+<form [formGroup]="form" class="col-1" (ngSubmit)="submit()">
   <div class="form-group">
     <label for="category">Category</label>
     <select
@@ -17,25 +17,37 @@
   </div>
   <button type="submit" class="btn btn-success">Search</button>
 </form>
-<div class="alert alert-primary">
+<div *ngIf="isProductsLoading$ | async" class="alert alert-primary">
   Products are loading: {{ isProductsLoading$ | async }}
 </div>
-<div
-  *ngFor="let product of products$ | async"
-  class="card"
-  style="width: 18rem"
->
-  <div class="card-body">
-    <h5 class="card-title">{{ product.name }}</h5>
-    <p class="card-text">Price: $2.99</p>
-    <label for="quantity">Quantity</label>
-    <input
-      type="number"
-      class="form-control"
-      name="quantity"
-      id="quantity"
-      value="1"
-    />
-    <button class="btn btn-primary">Add to Cart</button>
+<div id="products" *ngIf="!(isProductsLoading$ | async)">
+  <label for="productSearchTerm">Search for Product</label>
+  <input
+    (input)="searchForProduct()"
+    class="form-control"
+    type="text"
+    id="productSearchTerm"
+    [(ngModel)]="productSearchTerm"
+  />
+  <div id="products-flex-container">
+    <div
+      *ngFor="let product of products$ | async"
+      class="card"
+      style="width: 18rem"
+    >
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">Price: $2.99</p>
+        <label for="quantity">Quantity</label>
+        <input
+          type="number"
+          class="form-control"
+          name="quantity"
+          id="quantity"
+          value="1"
+        />
+        <button class="btn btn-primary">Add to Cart</button>
+      </div>
+    </div>
   </div>
 </div>

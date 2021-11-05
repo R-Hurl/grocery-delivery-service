@@ -49,3 +49,12 @@ export const selectIsProductsLoading = createSelector(
   selectProductsBranch,
   (productsBranch) => productsBranch.isProductsLoading
 );
+
+export const selectProductsBySearchTerm = (props: { searchTerm: string }) =>
+  createSelector(selectAllProductsEntityArray, (products) =>
+    products.filter(
+      (product) =>
+        product.name.toLowerCase().indexOf(props.searchTerm.toLowerCase()) !==
+        -1
+    )
+  );
