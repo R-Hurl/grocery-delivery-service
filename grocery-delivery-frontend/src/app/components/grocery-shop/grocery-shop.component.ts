@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { addToCart } from 'src/app/actions/cart.actions';
 import { loadCategories } from 'src/app/actions/categories.actions';
 import { loadProductsByCategory } from 'src/app/actions/products.actions';
 import { CategoryModel, ProductModel } from 'src/app/models';
@@ -53,5 +54,9 @@ export class GroceryShopComponent implements OnInit {
     this.products$ = this.store.select(
       selectProductsBySearchTerm({ searchTerm: this.productSearchTerm })
     );
+  }
+
+  addToCart() {
+    this.store.dispatch(addToCart());
   }
 }
