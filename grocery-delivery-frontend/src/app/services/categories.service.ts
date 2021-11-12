@@ -13,7 +13,7 @@ export class CategoriesService {
 
   getCategories(): Observable<Category[]> {
     return this.httpClient.get<Category[]>(
-      'https://localhost:5001/api/Categories'
+      'http://localhost:5000/api/Categories'
     );
   }
 }

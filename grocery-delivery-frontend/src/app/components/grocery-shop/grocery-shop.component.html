@@ -45,8 +45,12 @@
           name="quantity"
           id="quantity"
           value="1"
+          #quantityInput
         />
-        <button class="btn btn-primary" (click)="addToCart()">
+        <button
+          class="btn btn-primary"
+          (click)="addToCart(product, quantityInput.value)"
+        >
           Add to Cart
         </button>
       </div>

@@ -14,7 +14,7 @@ export class ProductsService {
 
   getProductsByCategoryId(categoryId: number) {
     return this.httpClient.get<Product[]>(
-      `https://localhost:5001/api/products/category/${categoryId}`
+      `http://localhost:5000/api/products/category/${categoryId}`
     );
   }
 }

@@ -2,15 +2,18 @@ import { ActionReducerMap, createSelector } from '@ngrx/store';
 import { CategoryModel, ProductModel } from '../models';
 import * as fromCategories from './categories.reducer';
 import * as fromProducts from './products.reducer';
+import * as fromCart from './cart.reducer';
 
 export interface AppState {
   categories: fromCategories.CategoriesState;
   products: fromProducts.ProductsState;
+  cart: fromCart.CartState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   categories: fromCategories.reducer,
   products: fromProducts.reducer,
+  cart: fromCart.reducer,
 };
 
 // Categories
@@ -58,3 +61,16 @@ export const selectProductsBySearchTerm = (props: { searchTerm: string }) =>
         -1
     )
   );
+
+// Cart
+const selectCartBranch = (state: AppState) => state.cart;
+
+const {
+  selectAll: selectAllCartEntityArray,
+  selectTotal: selectTotalItemsInCart,
+} = fromCart.adapter.getSelectors(selectCartBranch);
+
+export const selectNumberOfItemsInCart = createSelector(
+  selectTotalItemsInCart,
+  (numberOfItems) => numberOfItems
+);

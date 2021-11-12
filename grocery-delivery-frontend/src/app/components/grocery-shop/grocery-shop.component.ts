@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { addToCart } from 'src/app/actions/cart.actions';
 import { loadCategories } from 'src/app/actions/categories.actions';
 import { loadProductsByCategory } from 'src/app/actions/products.actions';
-import { CategoryModel, ProductModel } from 'src/app/models';
+import { AddToCartModel, CategoryModel, ProductModel } from 'src/app/models';
 import {
   AppState,
   selectCategories,
@@ -56,7 +56,8 @@ export class GroceryShopComponent implements OnInit {
     );
   }
 
-  addToCart() {
-    this.store.dispatch(addToCart());
+  addToCart(product: ProductModel, quantity: string) {
+    const payload: AddToCartModel = { product, quantity: Number(quantity) };
+    this.store.dispatch(addToCart({ payload }));
   }
 }
