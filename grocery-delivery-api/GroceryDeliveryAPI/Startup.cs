@@ -49,7 +49,7 @@ namespace GroceryDeliveryAPI
                 options.WithOrigins("http://localhost:4200").AllowAnyMethod();
             });
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
