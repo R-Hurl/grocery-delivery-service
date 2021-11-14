@@ -18,7 +18,7 @@
     <span class="badge rounded-pill bg-primary">{{ item.quantity }}</span>
   </li>
   <li><hr class="dropdown-divider" /></li>
-  <p>Total $10.99</p>
+  <p>Total: {{ total$ | async | currency }}</p>
   <footer>
     <button type="button" class="btn btn-primary">
       <a [routerLink]="['checkout']">Proceed to Checkout</a>

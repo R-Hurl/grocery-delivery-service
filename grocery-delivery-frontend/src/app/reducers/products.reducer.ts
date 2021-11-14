@@ -8,6 +8,7 @@ export interface ProductEntity {
   categoryId: number;
   name: string;
   description: string;
+  price: number;
 }
 
 export interface ProductsState extends EntityState<ProductEntity> {

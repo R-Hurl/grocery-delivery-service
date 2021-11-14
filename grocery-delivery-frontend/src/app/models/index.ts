@@ -8,6 +8,7 @@ export interface ProductModel {
   categoryId: number;
   name: string;
   description: string;
+  price: number;
 }
 
 export interface AddToCartModel {

@@ -8,16 +8,27 @@ export interface CartEntity {
   item: AddToCartModel;
 }
 
-export interface CartState extends EntityState<CartEntity> {}
+export interface CartState extends EntityState<CartEntity> {
+  total: number;
+}
 
 export const adapter = createEntityAdapter<CartEntity>();
 
-const initialState = adapter.getInitialState();
+const initialState = adapter.getInitialState({
+  total: 0,
+});
 
 const reducerFunction = createReducer(
   initialState,
   on(actions.addToCart, (state, action) =>
-    adapter.addOne({ id: state.ids.length + 1, item: action.payload }, state)
+    adapter.addOne(
+      { id: state.ids.length + 1, item: action.payload },
+      {
+        ...state,
+        total:
+          state.total + action.payload.product.price * action.payload.quantity,
+      }
+    )
   )
 );
 

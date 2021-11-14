@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AddToCartModel } from 'src/app/models';
 import {
   AppState,
+  selectCartTotal,
   selectItemsInCart,
   selectNumberOfItemsInCart,
 } from 'src/app/reducers';
@@ -16,11 +17,13 @@ import {
 export class CartDropdownComponent implements OnInit {
   numberOfCartItems$!: Observable<number>;
   cart$!: Observable<AddToCartModel[]>;
+  total$!: Observable<number>;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.numberOfCartItems$ = this.store.select(selectNumberOfItemsInCart);
     this.cart$ = this.store.select(selectItemsInCart);
+    this.total$ = this.store.select(selectCartTotal);
   }
 }

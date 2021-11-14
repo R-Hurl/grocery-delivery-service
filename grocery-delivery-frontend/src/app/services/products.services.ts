@@ -6,6 +6,7 @@ export interface Product {
   categoryId: number;
   name: string;
   description: string;
+  price: number;
 }
 
 @Injectable({ providedIn: 'root' })
