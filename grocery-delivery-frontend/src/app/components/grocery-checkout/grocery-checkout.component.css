@@ -1,0 +1,10 @@
+form {
+  margin-top: 3rem;
+  border: 1px solid black;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+header {
+  text-align: center;
+}

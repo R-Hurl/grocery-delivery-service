@@ -1,1 +1,36 @@
-<p>grocery-checkout works!</p>
+<form>
+  <header>
+    <h3>Checkout</h3>
+  </header>
+  <main>
+    <section>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let cartItem of cart$ | async" class="list-group-item">
+          <div class="input-group">
+            <span class="input-group-text">{{
+              cartItem.item.product.name
+            }}</span>
+            <input
+              type="number"
+              name="quantity"
+              id="quantity"
+              min="1"
+              value="{{ cartItem.item.quantity }}"
+            />
+            <button
+              class="btn btn-outline-danger"
+              type="button"
+              id="button-removefromcart"
+              (click)="removeFromCart(cartItem)"
+            >
+              <fa-icon [icon]="faTrashAlt"></fa-icon>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <footer>
+      <h4>Total: {{ total$ | async | currency }}</h4>
+    </footer>
+  </main>
+</form>

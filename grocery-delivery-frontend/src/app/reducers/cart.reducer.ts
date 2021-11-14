@@ -29,6 +29,12 @@ const reducerFunction = createReducer(
           state.total + action.payload.product.price * action.payload.quantity,
       }
     )
+  ),
+  on(actions.removeFromCart, (state, { payload }) =>
+    adapter.removeOne(payload.id, {
+      ...state,
+      total: state.total - payload.item.product.price * payload.item.quantity,
+    })
   )
 );
 

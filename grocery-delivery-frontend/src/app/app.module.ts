@@ -14,6 +14,7 @@ import { GroceryShopEffects } from './effects/grocery-shop.effects';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CartDropdownComponent } from './components/cart-dropdown/cart-dropdown.component';
 import { GroceryCheckoutComponent } from './components/grocery-checkout/grocery-checkout.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [AppComponent, GroceryShopComponent, NavbarComponent, CartDropdownComponent, GroceryCheckoutComponent],
@@ -26,6 +27,7 @@ import { GroceryCheckoutComponent } from './components/grocery-checkout/grocery-
     StoreDevtoolsModule.instrument(),
     HttpClientModule,
     EffectsModule.forRoot([GroceryShopEffects]),
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

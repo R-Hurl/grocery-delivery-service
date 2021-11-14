@@ -80,6 +80,11 @@ export const selectItemsInCart = createSelector(
   (cart) => cart.map((cartItem) => cartItem.item)
 );
 
+export const selectCartEntities = createSelector(
+  selectAllCartEntityArray,
+  (cart) => cart
+);
+
 export const selectCartTotal = createSelector(
   selectCartBranch,
   (cartBranch) => cartBranch.total
