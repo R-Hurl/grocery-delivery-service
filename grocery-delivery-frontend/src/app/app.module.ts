@@ -12,9 +12,11 @@ import { reducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { GroceryShopEffects } from './effects/grocery-shop.effects';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CartDropdownComponent } from './components/cart-dropdown/cart-dropdown.component';
+import { GroceryCheckoutComponent } from './components/grocery-checkout/grocery-checkout.component';
 
 @NgModule({
-  declarations: [AppComponent, GroceryShopComponent, NavbarComponent],
+  declarations: [AppComponent, GroceryShopComponent, NavbarComponent, CartDropdownComponent, GroceryCheckoutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

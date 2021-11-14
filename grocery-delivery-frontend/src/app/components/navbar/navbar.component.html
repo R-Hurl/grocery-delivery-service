@@ -8,14 +8,7 @@
       >Shop</a
     >
   </li>
-  <li class="nav-item">
-    <a class="nav-link"
-      >Cart
-      <span
-        *ngIf="((numberOfCartItems$ | async) || 0) > 0"
-        class="badge bg-secondary"
-        >{{ numberOfCartItems$ | async }}</span
-      ></a
-    >
+  <li class="nav-item dropdown">
+    <app-cart-dropdown></app-cart-dropdown>
   </li>
 </ul>

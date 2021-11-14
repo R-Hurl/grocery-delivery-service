@@ -74,3 +74,8 @@ export const selectNumberOfItemsInCart = createSelector(
   selectTotalItemsInCart,
   (numberOfItems) => numberOfItems
 );
+
+export const selectItemsInCart = createSelector(
+  selectAllCartEntityArray,
+  (cart) => cart.map((cartItem) => cartItem.item)
+);

@@ -1,0 +1,27 @@
+<button
+  class="nav-link dropdown-toggle"
+  type="button"
+  id="dropdownMenuButton1"
+  data-bs-toggle="dropdown"
+  aria-expanded="false"
+>
+  Cart
+  <span
+    *ngIf="((numberOfCartItems$ | async) || 0) > 0"
+    class="badge bg-secondary"
+    >{{ numberOfCartItems$ | async }}</span
+  >
+</button>
+<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+  <li *ngFor="let item of cart$ | async">
+    {{ item.product.name }}
+    <span class="badge rounded-pill bg-primary">{{ item.quantity }}</span>
+  </li>
+  <li><hr class="dropdown-divider" /></li>
+  <p>Total $10.99</p>
+  <footer>
+    <button type="button" class="btn btn-primary">
+      <a [routerLink]="['checkout']">Proceed to Checkout</a>
+    </button>
+  </footer>
+</ul>

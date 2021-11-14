@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { AppState, selectNumberOfItemsInCart } from 'src/app/reducers';
 
 @Component({
   selector: 'app-navbar',
@@ -9,11 +6,7 @@ import { AppState, selectNumberOfItemsInCart } from 'src/app/reducers';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  numberOfCartItems$!: Observable<number>;
+  constructor() {}
 
-  constructor(private store: Store<AppState>) {}
-
-  ngOnInit(): void {
-    this.numberOfCartItems$ = this.store.select(selectNumberOfItemsInCart);
-  }
+  ngOnInit(): void {}
 }
