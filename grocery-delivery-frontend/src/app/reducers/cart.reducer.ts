@@ -2,6 +2,7 @@ import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 import { AddToCartModel } from '../models';
 import * as actions from '../actions/cart.actions';
+import { updateTotalWhenUpdatingCartItem } from '../helpers/cart';
 
 export interface CartEntity {
   id: number;
@@ -35,6 +36,25 @@ const reducerFunction = createReducer(
       ...state,
       total: state.total - payload.item.product.price * payload.item.quantity,
     })
+  ),
+  on(actions.updateCartItem, (state, { payload }) =>
+    adapter.updateOne(
+      {
+        id: payload.updatedCartItem.id,
+        changes: {
+          ...payload.updatedCartItem,
+        },
+      },
+      {
+        ...state,
+        total: updateTotalWhenUpdatingCartItem(
+          state.total,
+          payload.updatedCartItem.item.product.price,
+          payload.cartItemBeforeUpdate.item.quantity,
+          payload.updatedCartItem.item.quantity
+        ),
+      }
+    )
   )
 );
 

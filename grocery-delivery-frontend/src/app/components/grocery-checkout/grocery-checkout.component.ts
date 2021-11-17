@@ -8,7 +8,7 @@ import {
 } from 'src/app/reducers';
 import { CartEntity } from '../../reducers/cart.reducer';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { removeFromCart } from 'src/app/actions/cart.actions';
+import { removeFromCart, updateCartItem } from 'src/app/actions/cart.actions';
 
 @Component({
   selector: 'app-grocery-checkout',
@@ -29,5 +29,22 @@ export class GroceryCheckoutComponent implements OnInit {
 
   removeFromCart(cartItem: CartEntity) {
     this.store.dispatch(removeFromCart({ payload: cartItem }));
+  }
+
+  updateItemInCart(item: CartEntity, quantity: string) {
+    const payload = {
+      cartItemBeforeUpdate: {
+        ...item,
+      },
+      updatedCartItem: {
+        id: item.id,
+        item: {
+          ...item.item,
+          quantity: Number(quantity),
+        },
+      },
+    };
+
+    this.store.dispatch(updateCartItem({ payload }));
   }
 }

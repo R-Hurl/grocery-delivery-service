@@ -11,3 +11,10 @@ export const removeFromCart = createAction(
   '[cart] removed item from cart',
   props<{ payload: CartEntity }>()
 );
+
+export const updateCartItem = createAction(
+  '[cart] update item in cart',
+  props<{
+    payload: { cartItemBeforeUpdate: CartEntity; updatedCartItem: CartEntity };
+  }>()
+);
