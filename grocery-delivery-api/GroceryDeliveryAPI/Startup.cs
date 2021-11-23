@@ -2,6 +2,7 @@ using GroceryDeliveryAPI.Repositories;
 using GroceryDeliveryAPI.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,6 +23,12 @@ namespace GroceryDeliveryAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
+
+            // Entity Framework Core
+            services.AddDbContext<GroceryDeliveryServiceContext>(options =>
+            {
+                options.UseNpgsql(Configuration.GetConnectionString("GroceryDeliveryServiceDB"));
+            });
 
             // Dependency Injection
             services.AddScoped<ICategoryRepository, CategoryRepository>();

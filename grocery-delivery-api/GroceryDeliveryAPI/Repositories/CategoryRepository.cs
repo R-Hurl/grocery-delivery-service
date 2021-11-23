@@ -1,5 +1,6 @@
 using GroceryDeliveryAPI.Models;
 using GroceryDeliveryAPI.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,27 +8,17 @@ namespace GroceryDeliveryAPI.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private List<Category> _categories = new List<Category>
+        private readonly GroceryDeliveryServiceContext _groceryDeliveryServiceContext;
+
+        public CategoryRepository(GroceryDeliveryServiceContext groceryDeliveryServiceContext)
         {
-            new Category
-            {
-                ID = 1,
-                CategoryName = "Dairy"
-            },
-            new Category
-            {
-                ID = 2,
-                CategoryName = "Meat"
-            },
-            new Category
-            {
-                ID = 3,
-                CategoryName = "Fruit"
-            }
-        };
+            _groceryDeliveryServiceContext = groceryDeliveryServiceContext;
+        }
+
         public async Task<IEnumerable<Category>> GetCategoriesAsync()
         {
-            return await Task.FromResult<IEnumerable<Category>>(_categories);
+            var categories = await _groceryDeliveryServiceContext.Categories.ToListAsync();
+            return categories;
         }
     }
 }
