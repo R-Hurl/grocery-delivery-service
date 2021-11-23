@@ -8,6 +8,7 @@ import {
   selectItemsInCart,
   selectNumberOfItemsInCart,
 } from 'src/app/reducers';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-cart-dropdown',
@@ -18,6 +19,7 @@ export class CartDropdownComponent implements OnInit {
   numberOfCartItems$!: Observable<number>;
   cart$!: Observable<AddToCartModel[]>;
   total$!: Observable<number>;
+  faShoppingCart = faShoppingCart;
 
   constructor(private store: Store<AppState>) {}
 

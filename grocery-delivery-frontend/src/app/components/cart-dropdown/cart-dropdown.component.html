@@ -5,10 +5,18 @@
   data-bs-toggle="dropdown"
   aria-expanded="false"
 >
-  Cart
+  <fa-icon [icon]="faShoppingCart"></fa-icon>
   <span
     *ngIf="((numberOfCartItems$ | async) || 0) > 0"
-    class="badge bg-secondary"
+    class="
+      position-absolute
+      top-5
+      start-100
+      translate-middle
+      badge
+      rounded-pill
+      bg-danger
+    "
     >{{ numberOfCartItems$ | async }}</span
   >
 </button>
