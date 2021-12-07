@@ -19,6 +19,7 @@ namespace GroceryDeliveryAPI.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(NoStore = false, Location = ResponseCacheLocation.Any, Duration = 60)]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategoriesAsync()
         {
             return Ok(await _categoryRepository.GetCategoriesAsync());

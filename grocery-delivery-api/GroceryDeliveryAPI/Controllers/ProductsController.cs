@@ -19,6 +19,7 @@ namespace GroceryDeliveryAPI.Controllers
 
         [HttpGet]
         [Route("category/{categoryId}")]
+        [ResponseCache(NoStore = false, Location = ResponseCacheLocation.Any, Duration = 60)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategoryAsync(short categoryId)
         {
             return Ok(await _productRepository.GetProductsByCategoryAsync(categoryId));
