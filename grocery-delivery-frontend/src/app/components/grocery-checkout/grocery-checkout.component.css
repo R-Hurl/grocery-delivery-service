@@ -8,3 +8,24 @@ form {
 header {
   text-align: center;
 }
+
+main {
+  padding: 1.5rem;
+}
+
+#cart,
+#addressFormSection {
+  margin-top: 15px;
+}
+
+footer {
+  margin-top: 20px;
+}
+
+.ng-invalid:not(form, #addressFormSection).ng-touched:not(form, #addressFormSection) {
+  border-left: 5px solid red;
+}
+
+.errorMessage {
+  color: red;
+}

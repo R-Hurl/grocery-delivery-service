@@ -1,10 +1,95 @@
-<form>
+<form [formGroup]="checkoutForm" (ngSubmit)="submit()">
   <header>
     <h3>Checkout</h3>
   </header>
   <main>
     <section>
-      <ul class="list-group list-group-flush">
+      <h5>Customer Information</h5>
+      <div class="row">
+        <div class="col-3">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            formControlName="firstName"
+          />
+          <p
+            class="errorMessage"
+            *ngIf="firstName?.invalid && firstName?.touched"
+          >
+            First Name is Required
+          </p>
+        </div>
+        <div class="col-3">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            formControlName="lastName"
+          />
+          <p
+            class="errorMessage"
+            *ngIf="lastName?.invalid && lastName?.touched"
+          >
+            Last Name is Required
+          </p>
+        </div>
+      </div>
+      <div id="addressFormSection" formGroupName="address">
+        <h5>Address</h5>
+        <div class="row">
+          <div class="col-6">
+            <label for="street" class="form-label">Street Address</label>
+            <input
+              type="text"
+              class="form-control"
+              id="street"
+              formControlName="street"
+            />
+            <p class="errorMessage" *ngIf="street?.invalid && street?.touched">
+              Street is required
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <label for="city" class="form-label">City</label>
+            <input
+              type="text"
+              class="form-control"
+              id="city"
+              formControlName="city"
+            />
+          </div>
+          <div class="col-1">
+            <label for="state" class="form-label">State</label>
+            <input
+              type="text"
+              class="form-control"
+              id="state"
+              formControlName="state"
+            />
+          </div>
+          <div class="col-2">
+            <label for="zip" class="form-label">ZIP Code</label>
+            <input
+              type="text"
+              class="form-control"
+              id="zip"
+              formControlName="zip"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="alert alert-info" role="alert" *ngIf="!(cart$ | async)?.length">
+      Cart is Empty, Please add Items.
+    </div>
+    <section id="cart" *ngIf="!!(cart$ | async)?.length">
+      <h5>Grocery Cart</h5>
+      <ul class="list-group list-group-flush col-3">
         <li *ngFor="let cartItem of cart$ | async" class="list-group-item">
           <div class="input-group">
             <span class="input-group-text">{{
@@ -31,8 +116,9 @@
         </li>
       </ul>
     </section>
-    <footer>
+    <footer *ngIf="(cart$ | async)?.length">
       <h4>Total: {{ total$ | async | currency }}</h4>
     </footer>
+    <button type="submit" class="btn btn-primary">Submit Order</button>
   </main>
 </form>
