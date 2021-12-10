@@ -5,6 +5,7 @@ import {
   AppState,
   selectCartEntities,
   selectCartTotal,
+  selectItemsInCart,
 } from 'src/app/reducers';
 import { CartEntity } from '../../reducers/cart.reducer';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
@@ -30,6 +31,7 @@ export class GroceryCheckoutComponent implements OnInit {
       zip: ['', [Validators.required, Validators.maxLength(5)]],
     }),
   });
+  checkoutFormError!: string | null;
 
   get firstName() {
     return this.checkoutForm.get('firstName');
@@ -39,6 +41,15 @@ export class GroceryCheckoutComponent implements OnInit {
   }
   get street() {
     return this.checkoutForm.get(['address', 'street']);
+  }
+  get city() {
+    return this.checkoutForm.get(['address', 'city']);
+  }
+  get state() {
+    return this.checkoutForm.get(['address', 'state']);
+  }
+  get zip() {
+    return this.checkoutForm.get(['address', 'zip']);
   }
 
   constructor(
@@ -73,7 +84,8 @@ export class GroceryCheckoutComponent implements OnInit {
   }
 
   submit() {
-    console.warn(this.checkoutForm.value);
-    console.log(this.street);
+    if (!this.checkoutForm.valid) {
+      this.checkoutFormError = "Cannot submit order, please check all fields are supplied.";
+    }
   }
 }
