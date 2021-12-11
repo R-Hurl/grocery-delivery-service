@@ -55,7 +55,8 @@ const reducerFunction = createReducer(
         ),
       }
     )
-  )
+  ),
+  on(actions.resetCart, (state) => adapter.removeAll({ ...state, total: 0 }))
 );
 
 export const reducer = (

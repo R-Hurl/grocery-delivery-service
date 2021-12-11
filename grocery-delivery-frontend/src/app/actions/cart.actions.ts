@@ -18,3 +18,5 @@ export const updateCartItem = createAction(
     payload: { cartItemBeforeUpdate: CartEntity; updatedCartItem: CartEntity };
   }>()
 );
+
+export const resetCart = createAction('[cart] reset cart');

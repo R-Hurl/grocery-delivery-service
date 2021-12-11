@@ -5,12 +5,15 @@ import {
   AppState,
   selectCartEntities,
   selectCartTotal,
-  selectItemsInCart,
+  selectNumberOfItemsInCart,
 } from 'src/app/reducers';
 import { CartEntity } from '../../reducers/cart.reducer';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { removeFromCart, updateCartItem } from 'src/app/actions/cart.actions';
+import { removeFromCart, resetCart, updateCartItem } from 'src/app/actions/cart.actions';
 import { FormBuilder, Validators } from '@angular/forms';
+import { take } from 'rxjs/operators';
+import { AddToCartModel, SubmitOrderModel } from 'src/app/models';
+import { submitOrder } from 'src/app/actions/checkout.actions';
 
 @Component({
   selector: 'app-grocery-checkout',
@@ -20,6 +23,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class GroceryCheckoutComponent implements OnInit {
   cart$!: Observable<CartEntity[]>;
   total$!: Observable<number>;
+  numberOfItemsInCart$!: Observable<number>;
   faTrashAlt = faTrashAlt;
   checkoutForm = this.formBuilder.group({
     firstName: ['', [Validators.required]],
@@ -60,6 +64,7 @@ export class GroceryCheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.cart$ = this.store.select(selectCartEntities);
     this.total$ = this.store.select(selectCartTotal);
+    this.numberOfItemsInCart$ = this.store.select(selectNumberOfItemsInCart);
   }
 
   removeFromCart(cartItem: CartEntity) {
@@ -84,8 +89,36 @@ export class GroceryCheckoutComponent implements OnInit {
   }
 
   submit() {
+    let numberOfCartItems: number = 0;
+    this.numberOfItemsInCart$.pipe(take(1)).subscribe(num => numberOfCartItems = num);
+
     if (!this.checkoutForm.valid) {
       this.checkoutFormError = "Cannot submit order, please check all fields are supplied.";
+      return;
     }
+
+    if (numberOfCartItems <= 0) {
+      this.checkoutFormError = 'Cannot submit order, no items have been added to the cart'
+      return;
+    }
+
+    let cartItems: AddToCartModel[] = [];
+    this.cart$.pipe().subscribe(cartEntity => {
+      let items = cartEntity.map(cartItem => cartItem.item);
+      cartItems = items;
+    });
+
+    let total: number = 0;
+    this.total$.pipe().subscribe(cartTotal => total = cartTotal);
+
+    const payload : SubmitOrderModel = {
+      ...this.checkoutForm.value,
+      cart: cartItems,
+      total
+    };
+
+    this.store.dispatch(submitOrder({ payload }));
+    this.checkoutForm.reset();
+    this.store.dispatch(resetCart());
   }
 }

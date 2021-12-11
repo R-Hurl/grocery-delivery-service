@@ -135,6 +135,7 @@
         </li>
       </ul>
     </section>
+    <p class="errorMessage" *ngIf="checkoutFormError?.length">{{checkoutFormError}}</p>
     <footer *ngIf="(cart$ | async)?.length">
       <h4>Total: {{ total$ | async | currency }}</h4>
     </footer>
