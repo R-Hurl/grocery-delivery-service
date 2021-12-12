@@ -15,9 +15,16 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CartDropdownComponent } from './components/cart-dropdown/cart-dropdown.component';
 import { GroceryCheckoutComponent } from './components/grocery-checkout/grocery-checkout.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { GroceryCheckoutEffects } from './effects/grocery-checkout.effects';
 
 @NgModule({
-  declarations: [AppComponent, GroceryShopComponent, NavbarComponent, CartDropdownComponent, GroceryCheckoutComponent],
+  declarations: [
+    AppComponent,
+    GroceryShopComponent,
+    NavbarComponent,
+    CartDropdownComponent,
+    GroceryCheckoutComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,7 +33,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
     HttpClientModule,
-    EffectsModule.forRoot([GroceryShopEffects]),
+    EffectsModule.forRoot([GroceryShopEffects, GroceryCheckoutEffects]),
     FontAwesomeModule,
   ],
   providers: [],
