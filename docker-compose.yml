@@ -22,6 +22,13 @@ services:
       dockerfile: Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
+  grocerydeliveryconsumer:
+    image: grocerydeliveryconsumer:latest
+    build:
+      context: grocery-delivery-consumer
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
   zookeeper:
     image: confluentinc/cp-zookeeper:6.2.0
     container_name: zookeeper
