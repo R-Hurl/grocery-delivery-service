@@ -13,37 +13,36 @@ namespace GroceryDeliveryOrdersConsumer
     public class OrdersConsumerService : BackgroundService
     {
         private readonly ILogger<OrdersConsumerService> _logger;
-        private readonly ConsumerConfig _consumerConfig;
-        private readonly IEnumerable<string> _topics = new List<string> { "orders" };
+        private readonly IConsumer<string, string> _consumer;
 
-        public OrdersConsumerService(ILogger<OrdersConsumerService> logger)
+        public OrdersConsumerService(ILogger<OrdersConsumerService> logger, IConsumer<string, string> consumer)
         {
             _logger = logger;
-            _consumerConfig = new ConsumerConfig
-            {
-                BootstrapServers = "localhost:9092",
-                GroupId = "order-consumers",
-                AutoOffsetReset = AutoOffsetReset.Earliest
-            };
+            _consumer = consumer;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using (var consumer = new ConsumerBuilder<string, string>(_consumerConfig).Build())
+            await Task.Yield();
+
+            while (!stoppingToken.IsCancellationRequested)
             {
-                consumer.Subscribe(_topics);
-
-                while (!stoppingToken.IsCancellationRequested)
+                try
                 {
-                    var consumeResult = consumer.Consume(stoppingToken);
-                    string orderNumber = consumeResult.Message.Key;
-                    var order = JsonConvert.DeserializeObject<Order>(consumeResult.Message.Value);
-
-                    Console.WriteLine($"Incoming Order: OrderNumber - {orderNumber} Order: {order}");
+                    var consumeResult = _consumer.Consume(stoppingToken);
+                    _logger.LogInformation($"Key: {consumeResult.Message.Key} - Value: {consumeResult.Message.Value}");
                 }
-
-                consumer.Close();
+                catch (Exception ex)
+                {
+                    _logger.LogError(new EventId(1000, "OrdersConsumerException"), ex, "Error Occured Consuming Order", null);
+                }
             }
+        }
+
+        public override void Dispose()
+        {
+            _consumer.Dispose();
+            base.Dispose();
         }
     }
 }
