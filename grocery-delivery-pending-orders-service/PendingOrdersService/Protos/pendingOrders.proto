@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option csharp_namespace = "PendingOrdersService";
+
+package pendingOrders;
+
+import "customTypes.proto";
+
+// GRPC service for registering pending grocery delivery orders.
+service PendingOrdersService {
+    // Registers pending order for delivery.
+    rpc RegisterPendingOrder (PendingOrderRequest) returns (PendingOrderReply);
+}
+
+// Models
+message PendingOrderRequest {
+    string orderNumber = 1;
+    Order order = 2;
+}
+
+message PendingOrderReply {
+    bool success
+}
+
+message Order {
+    string firstName = 1;
+    string lastName = 2;
+    Address Address = 3;
+    repeated CartItem cart = 4;
+    customTypes.DecimalValue Total = 5;
+}
+
+message Address {
+    string street = 1;
+    public string city = 2;
+    public string state = 3;
+    public string zipCode = 4;
+}
+
+message CartItem {
+    Product product = 1;
+    int32 quantity = 2;
+}
+
+message Product {
+    int32 id = 1;
+    int32 categoryId = 2;
+    string name = 3;
+    string description = 4;
+    customTypes.DecimalValue price = 5;
+}
