@@ -22,7 +22,7 @@ namespace GroceryDeliverAPI.Controllers
             // TODO: Add Logic to produce messages to Kafka.
             var producerConfig = new ProducerConfig
             {
-                BootstrapServers = "localhost:9092",
+                BootstrapServers = "broker:29092",
             };
 
             try
