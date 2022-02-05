@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
 
 namespace PendingOrdersService
@@ -21,7 +17,16 @@ namespace PendingOrdersService
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>().ConfigureKestrel(options =>
+                    {
+                        options.Limits.MinRequestBodyDataRate = null;
+
+                        options.ListenAnyIP(50050,
+                              listenOptions => { listenOptions.Protocols = HttpProtocols.Http1; });
+
+                        options.ListenAnyIP(50001,
+                           listenOptions => { listenOptions.Protocols = HttpProtocols.Http2; });
+                    });
                 });
     }
 }
