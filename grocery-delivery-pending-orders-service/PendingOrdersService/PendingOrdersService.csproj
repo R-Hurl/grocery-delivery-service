@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\customTypes.proto" GrpcServices="Both" ProtoRoot="Protos\"/>
+    <Protobuf Include="Protos\customTypes.proto" GrpcServices="Both" ProtoRoot="Protos\" />
   </ItemGroup>
 
   <ItemGroup>

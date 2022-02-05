@@ -32,7 +32,7 @@ namespace PendingOrdersService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<GreeterService>();
-                //endpoints.MapGrpcService<PendingOrdersService>();
+                endpoints.MapGrpcService<PendingOrdersService.Services.PendingOrdersService>();
 
                 endpoints.MapGet("/", async context =>
                 {

@@ -4,10 +4,10 @@ option csharp_namespace = "PendingOrdersService";
 
 package pendingOrders;
 
-import "customTypes.proto";
+import "Protos/customTypes.proto";
 
 // GRPC service for registering pending grocery delivery orders.
-service PendingOrdersService {
+service PendingOrders {
     // Registers pending order for delivery.
     rpc RegisterPendingOrder (PendingOrderRequest) returns (PendingOrderReply);
 }
@@ -19,7 +19,7 @@ message PendingOrderRequest {
 }
 
 message PendingOrderReply {
-    bool success
+    bool success = 1;
 }
 
 message Order {
@@ -32,9 +32,9 @@ message Order {
 
 message Address {
     string street = 1;
-    public string city = 2;
-    public string state = 3;
-    public string zipCode = 4;
+    string city = 2;
+    string state = 3;
+    string zipCode = 4;
 }
 
 message CartItem {
