@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,8 +45,26 @@ namespace GroceryDeliveryOrdersConsumer
                             City = order.Address.City,
                             State = order.Address.State,
                             ZipCode = order.Address.ZipCode
-                        }
+                        },
+                        Total = order.Total
                     };
+
+                    foreach (var cartItem in order.Cart)
+                    {
+                        var grpcCartItem = new CartItem
+                        {
+                            Product = new Product
+                            {
+                                Id = cartItem.Product.ID,
+                                CategoryId = cartItem.Product.CategoryId,
+                                Name = cartItem.Product.Name,
+                                Description = cartItem.Product.Description,
+                                Price = cartItem.Product.Price
+                            }
+                        };
+
+                        grpcOrder.Cart.Add(grpcCartItem);
+                    }
 
                     var pendingOrdersRequest = new PendingOrderRequest
                     {
