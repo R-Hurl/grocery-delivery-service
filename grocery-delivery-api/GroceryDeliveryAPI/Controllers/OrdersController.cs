@@ -1,9 +1,9 @@
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Confluent.Kafka;
 using GroceryDeliverAPI.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace GroceryDeliverAPI.Controllers
 {
@@ -32,7 +32,7 @@ namespace GroceryDeliverAPI.Controllers
                     var message = new Message<string, string>
                     {
                         Key = orderNumber.ToString(),
-                        Value = JsonConvert.SerializeObject(order)
+                        Value = JsonSerializer.Serialize(order)
                     };
 
                     // Write to ORDERS kafka topic
