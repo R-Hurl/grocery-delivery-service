@@ -7,5 +7,16 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0"/>
     <PackageReference Include="Confluent.Kafka" Version="1.8.2"/>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
+    <PackageReference Include="Grpc.Net.Client" Version="2.42.0"/>
+    <PackageReference Include="Google.Protobuf" Version="3.19.4"/>
+    <PackageReference Include="Grpc.Tools" Version="2.43.0"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\pendingOrders.proto" GrpcServices="Client" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\customTypes.proto" GrpcServices="Both" ProtoRoot="Protos\" />
   </ItemGroup>
 </Project>

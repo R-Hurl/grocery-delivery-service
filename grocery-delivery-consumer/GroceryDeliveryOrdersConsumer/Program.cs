@@ -1,4 +1,6 @@
 using Confluent.Kafka;
+using GroceryDeliveryOrdersConsumer.Services;
+using GroceryDeliveryOrdersConsumer.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -26,7 +28,10 @@ namespace GroceryDeliveryOrdersConsumer
                     var consumer = new ConsumerBuilder<string, string>(config).Build();
                     consumer.Subscribe("orders");
 
-                    services.AddHostedService(sp => new OrdersConsumerService(sp.GetRequiredService<ILogger<OrdersConsumerService>>(), consumer));
+                    services.AddTransient<IPendingOrdersService, PendingOrdersService>();
+                    services.AddHostedService(sp => new OrdersConsumerService(sp.GetRequiredService<ILogger<OrdersConsumerService>>(), consumer,
+                        sp.GetRequiredService<IPendingOrdersService>()));
+
                 });
     }
 }
