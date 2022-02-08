@@ -12,7 +12,7 @@ namespace GroceryDeliveryOrdersConsumer.Services
 
         public PendingOrdersService()
         {
-            _grpcChannel = GrpcChannel.ForAddress("http://localhost:5001");
+            _grpcChannel = GrpcChannel.ForAddress("http://localhost:50050");
             _pendingOrdersClient = new PendingOrders.PendingOrdersClient(_grpcChannel);
         }
 

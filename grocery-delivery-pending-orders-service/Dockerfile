@@ -1,6 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /app
 
+EXPOSE 50050
+EXPOSE 5001
+
 # Copy .csproj and .sln files and restore dependencies as distinct layers
 COPY *.sln .
 COPY PendingOrdersService/*.csproj ./PendingOrdersService/

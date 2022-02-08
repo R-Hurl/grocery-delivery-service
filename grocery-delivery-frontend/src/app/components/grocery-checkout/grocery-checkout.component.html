@@ -75,27 +75,23 @@
               formControlName="state"
             />
             <div class="errorMessage" *ngIf="state?.invalid && state?.touched">
-              <p *ngIf="state?.errors?.['required']">
-                State is required
-              </p>
+              <p *ngIf="state?.errors?.['required']">State is required</p>
               <p *ngIf="state?.errors?.['maxlength']">
                 State code cannot be more than 2 characters
               </p>
             </div>
           </div>
           <div class="col-2">
-            <label for="zip" class="form-label">ZIP Code</label>
+            <label for="zipCode" class="form-label">ZIP Code</label>
             <input
               type="text"
               class="form-control"
-              id="zip"
-              formControlName="zip"
+              id="zipCode"
+              formControlName="zipCode"
             />
             <div class="errorMessage" *ngIf="state?.invalid && state?.touched">
-              <p *ngIf="zip?.errors?.['required']">
-                Zip Code is required
-              </p>
-              <p *ngIf="zip?.errors?.['maxlength']">
+              <p *ngIf="zipCode?.errors?.['required']">Zip Code is required</p>
+              <p *ngIf="zipCode?.errors?.['maxlength']">
                 Zip Code cannot be more than 5 characters
               </p>
             </div>
@@ -103,7 +99,11 @@
         </div>
       </div>
     </section>
-    <div class="alert alert-info col-6" role="alert" *ngIf="!(cart$ | async)?.length">
+    <div
+      class="alert alert-info col-6"
+      role="alert"
+      *ngIf="!(cart$ | async)?.length"
+    >
       Cart is Empty, Please add Items.
     </div>
     <section id="cart" *ngIf="!!(cart$ | async)?.length">
@@ -135,7 +135,9 @@
         </li>
       </ul>
     </section>
-    <p class="errorMessage" *ngIf="checkoutFormError?.length">{{checkoutFormError}}</p>
+    <p class="errorMessage" *ngIf="checkoutFormError?.length">
+      {{ checkoutFormError }}
+    </p>
     <footer *ngIf="(cart$ | async)?.length">
       <h4>Total: {{ total$ | async | currency }}</h4>
     </footer>
