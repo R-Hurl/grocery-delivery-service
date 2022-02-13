@@ -19,8 +19,6 @@ namespace PendingOrdersService
                 {
                     webBuilder.UseStartup<Startup>().ConfigureKestrel(options =>
                     {
-                        options.Limits.MinRequestBodyDataRate = null;
-
                         options.ListenAnyIP(50050,
                               listenOptions => { listenOptions.Protocols = HttpProtocols.Http1; });
 

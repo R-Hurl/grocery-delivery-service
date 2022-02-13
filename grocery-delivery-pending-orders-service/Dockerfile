@@ -1,8 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /app
 
-EXPOSE 50050
-EXPOSE 5001
+EXPOSE 80
+EXPOSE 443
 
 # Copy .csproj and .sln files and restore dependencies as distinct layers
 COPY *.sln .

@@ -32,7 +32,8 @@ services:
   pendingordersgrpc:
     image: pendingordersgrpc:latest
     ports:
-      - "5001:80"
+      - "50050:50050"
+      - "50001:50001"
     depends_on:
       - "postgres_db"
     build:
