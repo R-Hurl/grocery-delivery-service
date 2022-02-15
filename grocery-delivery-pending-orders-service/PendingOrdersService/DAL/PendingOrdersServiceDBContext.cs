@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PendingOrdersService.Models;
 
-namespace PendingOrdersService.EntityFramework
+namespace PendingOrdersService.DAL
 {
     public class PendingOrdersServiceDBContext : DbContext
     {
