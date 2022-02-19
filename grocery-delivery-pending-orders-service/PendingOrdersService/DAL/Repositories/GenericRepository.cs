@@ -1,11 +1,15 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using PendingOrdersService.DAL.Repositories.Interfaces;
 
 namespace PendingOrdersService.DAL.Repositories
 {
-    public abstract class GenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         private readonly PendingOrdersServiceDBContext _dbContext;
-        private DbSet<TEntity> _dbSet;
+        protected readonly DbSet<TEntity> _dbSet;
 
         public GenericRepository(PendingOrdersServiceDBContext dbContext)
         {
@@ -13,23 +17,19 @@ namespace PendingOrdersService.DAL.Repositories
             _dbSet = _dbContext.Set<TEntity>();
         }
 
-        public virtual TEntity GetByID(object id)
-        {
-            return _dbSet.Find(id);
-        }
+        public async Task<TEntity> GetByID(object id) => await _dbSet.FindAsync(id);
 
-        public virtual void Insert(TEntity entity)
-        {
-            _dbSet.Add(entity);
-        }
+        public EntityEntry<TEntity> Insert(TEntity entity) => _dbSet.Add(entity);
 
-        public virtual void Delete(object id)
+        public void InsertRange(IEnumerable<TEntity> entities) => _dbSet.AddRange(entities);
+
+        public async Task Delete(object id)
         {
-            TEntity entityToDelete = _dbSet.Find(id);
+            TEntity entityToDelete = await _dbSet.FindAsync(id);
             Delete(entityToDelete);
         }
 
-        public virtual void Delete(TEntity entityToDelete)
+        private void Delete(TEntity entityToDelete)
         {
             if (_dbContext.Entry(entityToDelete).State == EntityState.Detached)
             {
@@ -39,7 +39,7 @@ namespace PendingOrdersService.DAL.Repositories
             _dbSet.Remove(entityToDelete);
         }
 
-        public virtual void Update(TEntity entityToUpdate)
+        public void Update(TEntity entityToUpdate)
         {
             _dbSet.Attach(entityToUpdate);
             _dbContext.Entry(entityToUpdate).State = EntityState.Modified;

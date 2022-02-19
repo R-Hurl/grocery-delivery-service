@@ -1,6 +1,6 @@
 namespace PendingOrdersService.DAL.Repositories.Interfaces
 {
-    public interface IOrdersRepository
+    public interface IOrdersRepository : IGenericRepository<Models.Order>
     {
 
     }

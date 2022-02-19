@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PendingOrdersService.DAL;
+using PendingOrdersService.DAL.Repositories;
+using PendingOrdersService.DAL.Repositories.Interfaces;
 
 namespace PendingOrdersService
 {
@@ -29,6 +31,8 @@ namespace PendingOrdersService
             {
                 options.UseNpgsql(Configuration.GetConnectionString("GroceryDeliveryServiceDB"));
             });
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
