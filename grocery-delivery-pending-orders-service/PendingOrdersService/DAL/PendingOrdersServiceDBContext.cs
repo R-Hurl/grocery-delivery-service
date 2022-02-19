@@ -27,7 +27,7 @@ namespace PendingOrdersService.DAL
         public OrderItemsMap(EntityTypeBuilder<OrderItem> entityBuilder)
         {
             entityBuilder.HasKey(x => x.Id);
-            entityBuilder.ToTable("orders");
+            entityBuilder.ToTable("orderitems");
 
             // Columns
             entityBuilder.Property(x => x.Id).HasColumnName("id").ValueGeneratedOnAdd();
@@ -43,7 +43,7 @@ namespace PendingOrdersService.DAL
         public OrdersMap(EntityTypeBuilder<Models.Order> entityBuilder)
         {
             entityBuilder.HasKey(x => x.Id);
-            entityBuilder.ToTable("orderitems");
+            entityBuilder.ToTable("orders");
 
             entityBuilder.Property(x => x.Id).HasColumnName("id").ValueGeneratedOnAdd();
             entityBuilder.Property(x => x.OrderId).HasColumnName("order_id").IsRequired(true);
