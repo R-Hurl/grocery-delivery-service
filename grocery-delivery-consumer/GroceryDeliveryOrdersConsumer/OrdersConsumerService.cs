@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -60,7 +59,8 @@ namespace GroceryDeliveryOrdersConsumer
                                 Name = cartItem.Product.Name,
                                 Description = cartItem.Product.Description,
                                 Price = cartItem.Product.Price
-                            }
+                            },
+                            Quantity = cartItem.Quantity
                         };
 
                         grpcOrder.Cart.Add(grpcCartItem);

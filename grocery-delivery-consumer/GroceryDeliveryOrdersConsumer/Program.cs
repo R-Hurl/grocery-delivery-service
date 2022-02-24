@@ -20,7 +20,7 @@ namespace GroceryDeliveryOrdersConsumer
                 {
                     var config = new ConsumerConfig
                     {
-                        BootstrapServers = "localhost:9092",
+                        BootstrapServers = "broker:29092",
                         EnableAutoCommit = false,
                         GroupId = "order-consumers",
                         AutoOffsetReset = AutoOffsetReset.Earliest
