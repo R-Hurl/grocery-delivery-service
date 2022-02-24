@@ -46,7 +46,7 @@ namespace GroceryDeliverAPI.Controllers
                 Console.WriteLine(ex);
             }
 
-            return await Task.FromResult(Guid.NewGuid());
+            return await Task.FromResult(orderNumber);
         }
     }
 }
