@@ -10,13 +10,12 @@
     <PackageReference Include="Grpc.Net.Client" Version="2.42.0"/>
     <PackageReference Include="Google.Protobuf" Version="3.19.4"/>
     <PackageReference Include="Grpc.Tools" Version="2.43.0"/>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0"/>
   </ItemGroup>
-
   <ItemGroup>
-    <Protobuf Include="Protos\pendingOrders.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\pendingOrders.proto" GrpcServices="Client"/>
   </ItemGroup>
-
   <ItemGroup>
-    <Protobuf Include="Protos\customTypes.proto" GrpcServices="Both" ProtoRoot="Protos\" />
+    <Protobuf Include="Protos\customTypes.proto" GrpcServices="Both" ProtoRoot="Protos\"/>
   </ItemGroup>
 </Project>

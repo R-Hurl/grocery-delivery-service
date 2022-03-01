@@ -2,6 +2,7 @@ using System;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Confluent.Kafka;
 using GroceryDeliveryOrdersConsumer.Services.Interfaces;
 using Microsoft.Extensions.Hosting;
@@ -14,12 +15,15 @@ namespace GroceryDeliveryOrdersConsumer
         private readonly ILogger<OrdersConsumerService> _logger;
         private readonly IConsumer<string, string> _consumer;
         private readonly IPendingOrdersService _pendingOrdersService;
+        private readonly IMapper _mapper;
 
-        public OrdersConsumerService(ILogger<OrdersConsumerService> logger, IConsumer<string, string> consumer, IPendingOrdersService pendingOrdersService)
+        public OrdersConsumerService(ILogger<OrdersConsumerService> logger, IConsumer<string, string> consumer,
+        IPendingOrdersService pendingOrdersService, IMapper mapper)
         {
             _logger = logger;
             _consumer = consumer;
             _pendingOrdersService = pendingOrdersService;
+            _mapper = mapper;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -34,37 +38,7 @@ namespace GroceryDeliveryOrdersConsumer
                     _logger.LogInformation($"Key: {consumeResult.Message.Key} - Value: {consumeResult.Message.Value}");
 
                     var order = JsonSerializer.Deserialize<GroceryDeliveryOrdersConsumer.Models.Order>(consumeResult.Message.Value);
-                    var grpcOrder = new Order
-                    {
-                        FirstName = order.FirstName,
-                        LastName = order.LastName,
-                        Address = new Address
-                        {
-                            Street = order.Address.Street,
-                            City = order.Address.City,
-                            State = order.Address.State,
-                            ZipCode = order.Address.ZipCode
-                        },
-                        Total = order.Total
-                    };
-
-                    foreach (var cartItem in order.Cart)
-                    {
-                        var grpcCartItem = new CartItem
-                        {
-                            Product = new Product
-                            {
-                                Id = cartItem.Product.ID,
-                                CategoryId = cartItem.Product.CategoryId,
-                                Name = cartItem.Product.Name,
-                                Description = cartItem.Product.Description,
-                                Price = cartItem.Product.Price
-                            },
-                            Quantity = cartItem.Quantity
-                        };
-
-                        grpcOrder.Cart.Add(grpcCartItem);
-                    }
+                    var grpcOrder = _mapper.Map<Models.Order, Order>(order);
 
                     var pendingOrdersRequest = new PendingOrderRequest
                     {

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Confluent.Kafka;
 using GroceryDeliveryOrdersConsumer.Services;
 using GroceryDeliveryOrdersConsumer.Services.Interfaces;
@@ -29,8 +30,9 @@ namespace GroceryDeliveryOrdersConsumer
                     consumer.Subscribe("orders");
 
                     services.AddTransient<IPendingOrdersService, PendingOrdersService>();
+                    services.AddAutoMapper(typeof(OrderProfile));
                     services.AddHostedService(sp => new OrdersConsumerService(sp.GetRequiredService<ILogger<OrdersConsumerService>>(), consumer,
-                        sp.GetRequiredService<IPendingOrdersService>()));
+                        sp.GetRequiredService<IPendingOrdersService>(), sp.GetRequiredService<IMapper>()));
 
                 });
     }
