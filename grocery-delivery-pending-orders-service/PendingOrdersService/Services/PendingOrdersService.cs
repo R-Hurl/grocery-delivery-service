@@ -32,7 +32,7 @@ namespace PendingOrdersService.Services
                     OrderId = Guid.Parse(request.OrderNumber),
                     CustomerId = 1, // Fix this later once registering and login is working
                     OrderStatus = OrderStatus.Pending,
-                    Total = new decimal(request.Order.Total.Units * request.Order.Total.Nanos)
+                    Total = (decimal)request.Order.Total
                 };
                 _unitOfWork.Orders.Insert(order);
 
