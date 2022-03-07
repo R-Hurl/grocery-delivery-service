@@ -18,6 +18,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { AddToCartModel, SubmitOrderModel } from 'src/app/models';
 import { submitOrder } from 'src/app/actions/checkout.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-grocery-checkout',
@@ -62,7 +63,8 @@ export class GroceryCheckoutComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -126,6 +128,7 @@ export class GroceryCheckoutComponent implements OnInit {
     };
 
     this.store.dispatch(submitOrder({ payload }));
+    this.router.navigate(['/confirmation']);
     this.checkoutForm.reset();
     this.store.dispatch(resetCart());
   }

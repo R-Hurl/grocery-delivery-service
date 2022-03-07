@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { EMPTY } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import * as orderActions from '../actions/checkout.actions';
 import { OrdersService } from '../services/orders.service';
@@ -17,6 +18,10 @@ export class GroceryCheckoutEffects {
               orderActions.submitOrderSucceeded({ payload: orderNumber })
             )
           );
+      }),
+      catchError((err) => {
+        console.log('Exception occured submitting order', err);
+        return EMPTY;
       })
     );
   });

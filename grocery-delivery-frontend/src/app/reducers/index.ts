@@ -3,17 +3,20 @@ import { CategoryModel, ProductModel } from '../models';
 import * as fromCategories from './categories.reducer';
 import * as fromProducts from './products.reducer';
 import * as fromCart from './cart.reducer';
+import * as fromOrder from './orders.reducer';
 
 export interface AppState {
   categories: fromCategories.CategoriesState;
   products: fromProducts.ProductsState;
   cart: fromCart.CartState;
+  order: fromOrder.OrderState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   categories: fromCategories.reducer,
   products: fromProducts.reducer,
   cart: fromCart.reducer,
+  order: fromOrder.reducer,
 };
 
 // Categories
@@ -88,4 +91,12 @@ export const selectCartEntities = createSelector(
 export const selectCartTotal = createSelector(
   selectCartBranch,
   (cartBranch) => cartBranch.total
+);
+
+// Order selectors
+export const selectOrderBranch = (state: AppState) => state.order;
+
+export const selectOrderNumber = createSelector(
+  selectOrderBranch,
+  (orderBranch) => orderBranch.orderNumber
 );

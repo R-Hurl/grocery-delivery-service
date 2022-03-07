@@ -16,6 +16,7 @@ import { CartDropdownComponent } from './components/cart-dropdown/cart-dropdown.
 import { GroceryCheckoutComponent } from './components/grocery-checkout/grocery-checkout.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GroceryCheckoutEffects } from './effects/grocery-checkout.effects';
+import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { GroceryCheckoutEffects } from './effects/grocery-checkout.effects';
     NavbarComponent,
     CartDropdownComponent,
     GroceryCheckoutComponent,
+    OrderConfirmationComponent,
   ],
   imports: [
     BrowserModule,
