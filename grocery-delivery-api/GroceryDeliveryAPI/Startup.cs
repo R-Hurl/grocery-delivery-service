@@ -36,6 +36,7 @@ namespace GroceryDeliveryAPI
             // Dependency Injection
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

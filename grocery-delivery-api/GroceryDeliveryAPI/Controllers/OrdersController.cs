@@ -65,7 +65,7 @@ namespace GroceryDeliverAPI.Controllers
         }
 
         [HttpGet]
-        [Route("{controller}/{orderId}")]
+        [Route("{orderId}")]
         public async Task<ActionResult<List<OrderItemDTO>>> GetOrderItemsAsync(string orderId)
         {
             return await _orderRepository.GetOrderItemsAsync(orderId);
