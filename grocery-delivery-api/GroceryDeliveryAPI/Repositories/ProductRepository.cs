@@ -17,6 +17,11 @@ namespace GroceryDeliveryAPI.Repositories
             _groceryDeliveryServiceContext = groceryDeliveryServiceContext;
         }
 
+        public async Task<Product> GetProductByIdAsync(int id)
+        {
+            return await _groceryDeliveryServiceContext.Products.Where(p => p.ID == id).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(short categoryId)
         {
             var products = await _groceryDeliveryServiceContext.Products.Where(product => product.CategoryId == categoryId).ToListAsync();

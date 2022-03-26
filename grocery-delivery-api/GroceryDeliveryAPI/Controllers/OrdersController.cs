@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Confluent.Kafka;
 using GroceryDeliverAPI.Models;
+using GroceryDeliveryAPI.DTOs;
+using GroceryDeliveryAPI.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GroceryDeliverAPI.Controllers
@@ -12,9 +15,15 @@ namespace GroceryDeliverAPI.Controllers
     public class OrdersController : Controller
     {
         private readonly string KAFKA_TOPIC = "orders";
+        private readonly IOrderRepository _orderRepository;
+
+        public OrdersController(IOrderRepository orderRepository)
+        {
+            _orderRepository = orderRepository;
+        }
 
         [HttpPost]
-        public async Task<ActionResult<Guid>> SubmitOrder([FromBody] Order order)
+        public async Task<ActionResult<Guid>> SubmitOrder([FromBody] SubmittedOrder order)
         {
             // Generate order number.
             var orderNumber = Guid.NewGuid();
@@ -47,6 +56,19 @@ namespace GroceryDeliverAPI.Controllers
             }
 
             return await Task.FromResult(orderNumber);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<OrderDTO>>> GetOrdersAsync()
+        {
+            return await _orderRepository.GetOrdersAsync();
+        }
+
+        [HttpGet]
+        [Route("{controller}/{orderId}")]
+        public async Task<ActionResult<List<OrderItemDTO>>> GetOrderItemsAsync(string orderId)
+        {
+            return await _orderRepository.GetOrderItemsAsync(orderId);
         }
     }
 }

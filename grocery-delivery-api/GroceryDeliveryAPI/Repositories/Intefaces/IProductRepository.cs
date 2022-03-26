@@ -7,5 +7,6 @@ namespace GroceryDeliveryAPI.Repositories.Interfaces
     public interface IProductRepository
     {
         Task<IEnumerable<Product>> GetProductsByCategoryAsync(short categoryId);
+        Task<Product> GetProductByIdAsync(int id);
     }
 }

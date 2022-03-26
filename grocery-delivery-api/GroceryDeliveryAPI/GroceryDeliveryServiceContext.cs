@@ -12,6 +12,8 @@ namespace GroceryDeliveryAPI
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -19,6 +21,8 @@ namespace GroceryDeliveryAPI
 
             new CategoriesMap(builder.Entity<Category>());
             new ProductsMap(builder.Entity<Product>());
+            new OrdersMap(builder.Entity<Order>());
+            new OrderItemsMap(builder.Entity<OrderItem>());
         }
     }
 
@@ -48,6 +52,37 @@ namespace GroceryDeliveryAPI
             entityBuilder.Property(x => x.Name).HasColumnName("name");
             entityBuilder.Property(x => x.Description).HasColumnName("description");
             entityBuilder.Property(x => x.Price).HasColumnName("price");
+        }
+    }
+
+    internal class OrderItemsMap
+    {
+        public OrderItemsMap(EntityTypeBuilder<OrderItem> entityBuilder)
+        {
+            entityBuilder.HasKey(x => x.Id);
+            entityBuilder.ToTable("orderitems");
+
+            // Columns
+            entityBuilder.Property(x => x.Id).HasColumnName("id").ValueGeneratedOnAdd();
+            entityBuilder.Property(x => x.ProductId).HasColumnName("product_id").IsRequired(true);
+            entityBuilder.Property(x => x.Quantity).HasColumnName("quantity").IsRequired(true);
+            entityBuilder.Property(x => x.OrderId).HasColumnName("order_id").IsRequired(true);
+        }
+    }
+
+    internal class OrdersMap
+    {
+
+        public OrdersMap(EntityTypeBuilder<Models.Order> entityBuilder)
+        {
+            entityBuilder.HasKey(x => x.Id);
+            entityBuilder.ToTable("orders");
+
+            entityBuilder.Property(x => x.Id).HasColumnName("id").ValueGeneratedOnAdd();
+            entityBuilder.Property(x => x.OrderId).HasColumnName("order_id").IsRequired(true);
+            entityBuilder.Property(x => x.CustomerId).HasColumnName("customer_id").IsRequired(true);
+            entityBuilder.Property(x => x.OrderStatus).HasColumnName("order_status").IsRequired(true).HasMaxLength(2);
+            entityBuilder.Property(x => x.Total).HasColumnName("total");
         }
     }
 }

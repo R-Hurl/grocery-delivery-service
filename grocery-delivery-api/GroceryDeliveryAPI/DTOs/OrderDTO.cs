@@ -1,12 +1,10 @@
 using System;
 
-namespace GroceryDeliveryAPI.Models
+namespace GroceryDeliveryAPI.DTOs
 {
-    public class Order
+    public class OrderDTO
     {
-        public int Id { get; set; }
         public Guid OrderId { get; set; }
-        public int CustomerId { get; set; }
         public string OrderStatus { get; set; }
         public decimal Total { get; set; }
     }

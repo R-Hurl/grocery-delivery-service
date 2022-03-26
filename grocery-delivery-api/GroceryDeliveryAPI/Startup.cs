@@ -1,3 +1,4 @@
+using GroceryDeliveryAPI.Profiles;
 using GroceryDeliveryAPI.Repositories;
 using GroceryDeliveryAPI.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -23,6 +24,8 @@ namespace GroceryDeliveryAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
+
+            services.AddAutoMapper(typeof(OrderProfile), typeof(ProductProfile));
 
             // Entity Framework Core
             services.AddDbContext<GroceryDeliveryServiceContext>(options =>
