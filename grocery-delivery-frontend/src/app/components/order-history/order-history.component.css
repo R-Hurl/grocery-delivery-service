@@ -1,0 +1,23 @@
+#card-container {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 75%;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-justified {
+  display: flex;
+  justify-content: space-evenly;
+  width: 75%;
+}
+
+span {
+  font-weight: bold;
+}

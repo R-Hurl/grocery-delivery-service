@@ -1,0 +1,15 @@
+<div id="card-container">
+  <div class="card">
+    <div class="card-header">Orders</div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let order of orders$ | async">
+        <div class="left-justified">
+          <p><span>Order Number:</span>{{ order?.orderId }}</p>
+          <p><span>Total:</span>{{ order?.total | currency }}</p>
+          <p><span>Status:</span>{{ order?.orderStatus }}</p>
+        </div>
+        <a href="#">View Order Details</a>
+      </li>
+    </ul>
+  </div>
+</div>

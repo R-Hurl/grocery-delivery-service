@@ -9,14 +9,14 @@ export interface AppState {
   categories: fromCategories.CategoriesState;
   products: fromProducts.ProductsState;
   cart: fromCart.CartState;
-  order: fromOrder.OrderState;
+  orders: fromOrder.OrdersState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   categories: fromCategories.reducer,
   products: fromProducts.reducer,
   cart: fromCart.reducer,
-  order: fromOrder.reducer,
+  orders: fromOrder.reducer,
 };
 
 // Categories
@@ -94,9 +94,17 @@ export const selectCartTotal = createSelector(
 );
 
 // Order selectors
-export const selectOrderBranch = (state: AppState) => state.order;
+export const selectOrderBranch = (state: AppState) => state.orders;
+
+const { selectAll: selectAllOrdersArray } =
+  fromOrder.adapter.getSelectors(selectOrderBranch);
 
 export const selectOrderNumber = createSelector(
   selectOrderBranch,
   (orderBranch) => orderBranch.orderNumber
+);
+
+export const selectOrderEntites = createSelector(
+  selectAllOrdersArray,
+  (orders) => orders
 );

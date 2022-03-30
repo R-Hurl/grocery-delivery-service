@@ -17,6 +17,8 @@ import { GroceryCheckoutComponent } from './components/grocery-checkout/grocery-
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GroceryCheckoutEffects } from './effects/grocery-checkout.effects';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { OrderEffects } from './effects/orders.effects';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { OrderConfirmationComponent } from './components/order-confirmation/orde
     CartDropdownComponent,
     GroceryCheckoutComponent,
     OrderConfirmationComponent,
+    OrderHistoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,11 @@ import { OrderConfirmationComponent } from './components/order-confirmation/orde
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
     HttpClientModule,
-    EffectsModule.forRoot([GroceryShopEffects, GroceryCheckoutEffects]),
+    EffectsModule.forRoot([
+      GroceryShopEffects,
+      GroceryCheckoutEffects,
+      OrderEffects,
+    ]),
     FontAwesomeModule,
   ],
   providers: [],
