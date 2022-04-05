@@ -19,6 +19,7 @@ import { GroceryCheckoutEffects } from './effects/grocery-checkout.effects';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { OrderEffects } from './effects/orders.effects';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { OrderEffects } from './effects/orders.effects';
     GroceryCheckoutComponent,
     OrderConfirmationComponent,
     OrderHistoryComponent,
+    OrderDetailsComponent,
   ],
   imports: [
     BrowserModule,
