@@ -18,8 +18,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GroceryCheckoutEffects } from './effects/grocery-checkout.effects';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
-import { OrderEffects } from './effects/orders.effects';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
+import { OrderHistoryComponentStore } from './components/order-history/order-history-component-store.service';
 
 @NgModule({
   declarations: [
@@ -40,14 +40,10 @@ import { OrderDetailsComponent } from './components/order-details/order-details.
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
     HttpClientModule,
-    EffectsModule.forRoot([
-      GroceryShopEffects,
-      GroceryCheckoutEffects,
-      OrderEffects,
-    ]),
+    EffectsModule.forRoot([GroceryShopEffects, GroceryCheckoutEffects]),
     FontAwesomeModule,
   ],
-  providers: [],
+  providers: [OrderHistoryComponentStore],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

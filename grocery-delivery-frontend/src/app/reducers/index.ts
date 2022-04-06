@@ -96,15 +96,7 @@ export const selectCartTotal = createSelector(
 // Order selectors
 export const selectOrderBranch = (state: AppState) => state.orders;
 
-const { selectAll: selectAllOrdersArray } =
-  fromOrder.adapter.getSelectors(selectOrderBranch);
-
 export const selectOrderNumber = createSelector(
   selectOrderBranch,
   (orderBranch) => orderBranch.orderNumber
-);
-
-export const selectOrderEntites = createSelector(
-  selectAllOrdersArray,
-  (orders) => orders
 );

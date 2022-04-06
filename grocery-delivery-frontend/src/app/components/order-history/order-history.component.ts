@@ -1,23 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { getOrderHistory } from 'src/app/actions/orders.actions';
-import { AppState, selectOrderEntites } from 'src/app/reducers';
-import { OrderEntity } from 'src/app/reducers/orders.reducer';
+import { Component } from '@angular/core';
+import { OrderHistoryComponentStore } from './order-history-component-store.service';
 
 @Component({
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.css'],
 })
-export class OrderHistoryComponent implements OnInit {
-  orders$!: Observable<OrderEntity[]>;
+export class OrderHistoryComponent {
+  orders$ = this.componentStore.selectOrders$;
 
-  constructor(private store: Store<AppState>) {
-    this.store.dispatch(getOrderHistory());
-  }
-
-  ngOnInit(): void {
-    this.orders$ = this.store.select(selectOrderEntites);
+  constructor(private componentStore: OrderHistoryComponentStore) {
+    this.componentStore.loadOrders();
   }
 }
