@@ -8,7 +8,7 @@
           <p><span>Total:</span>{{ order?.total | currency }}</p>
           <p><span>Status:</span>{{ order?.orderStatus }}</p>
         </div>
-        <a href="#">View Order Details</a>
+        <a [routerLink]="['/orders', order?.orderId]">View Order Details</a>
       </li>
     </ul>
   </div>

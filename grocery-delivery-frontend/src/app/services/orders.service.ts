@@ -36,7 +36,7 @@ export class OrdersService {
 
   getOrderItems(orderId: string): Observable<OrderItem[]> {
     return this.httpClient.get<OrderItem[]>(
-      `http://localhost:5000/orders/${orderId}`
+      `http://localhost:5000/api/orders/${orderId}`
     );
   }
 }

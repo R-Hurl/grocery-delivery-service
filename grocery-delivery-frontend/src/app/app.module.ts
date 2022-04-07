@@ -20,6 +20,7 @@ import { OrderConfirmationComponent } from './components/order-confirmation/orde
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { OrderHistoryComponentStore } from './components/order-history/order-history-component-store.service';
+import { OrderDetailsComponentStore } from './components/order-details/order-details-component-store.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { OrderHistoryComponentStore } from './components/order-history/order-his
     EffectsModule.forRoot([GroceryShopEffects, GroceryCheckoutEffects]),
     FontAwesomeModule,
   ],
-  providers: [OrderHistoryComponentStore],
+  providers: [OrderHistoryComponentStore, OrderDetailsComponentStore],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

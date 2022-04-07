@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'checkout', component: GroceryCheckoutComponent },
   { path: 'confirmation', component: OrderConfirmationComponent },
   { path: 'orders', component: OrderHistoryComponent },
-  { path: 'orders:id', component: OrderDetailsComponent },
+  { path: 'orders/:orderId', component: OrderDetailsComponent },
   { path: '**', component: GroceryShopComponent },
 ];
 

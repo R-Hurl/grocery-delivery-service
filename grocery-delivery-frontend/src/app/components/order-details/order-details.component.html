@@ -1,1 +1,17 @@
-<p>order-details works!</p>
+<div>
+  <a [routerLink]="['/orders']">Back to Orders</a>
+  <ul class="list-group list-group-flush col-md-4">
+    <li
+      class="list-group-item"
+      *ngFor="let orderDetail of orderDetails$ | async"
+    >
+      <div class="card" style="width: 18rem">
+        <h4 class="card-title">{{ orderDetail?.product?.name }}</h4>
+        <p class="card-text">
+          Price: {{ orderDetail?.product?.price | currency }}
+        </p>
+        <p class="card-text">Quantity: {{ orderDetail?.quantity }}</p>
+      </div>
+    </li>
+  </ul>
+</div>
