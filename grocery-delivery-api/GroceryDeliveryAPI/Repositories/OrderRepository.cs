@@ -35,6 +35,7 @@ namespace GroceryDeliveryAPI.Repositories
                 var product = await _productRepository.GetProductByIdAsync(item.ProductId);
                 var orderItem = new OrderItemDTO
                 {
+                    Id = item.Id,
                     Product = _mapper.Map<Models.Product, DTOs.ProductDTO>(product),
                     Quantity = item.Quantity
                 };
