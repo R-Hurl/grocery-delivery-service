@@ -1,0 +1,14 @@
+{
+    "name": "grocerydeliveryservicedb-connector",
+    "config": {
+      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+      "plugin.name": "pgoutput",
+      "database.hostname": "postgres_db",
+      "database.port": "5432",
+      "database.user": "testuser",
+      "database.password": "password",
+      "database.dbname": "grocerydeliveryservicedb",
+      "database.server.name": "postgres_db",
+      "table.include.list": "public.orders"
+    }
+  }

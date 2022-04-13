@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   postgres_db:
-    image: postgres:latest
+    image: debezium/postgres:13
     restart: always
     ports:
       - "5432:5432"
@@ -64,6 +64,16 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+  debezium:
+    image: debezium/connect:1.8
+    environment:
+      BOOTSTRAP_SERVERS: broker:29092
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: connect_configs
+      OFFSET_STORAGE_TOPIC: connect_offsets
+    depends_on: [broker]
+    ports:
+      - 8083:8083
   init_kafka:
     image: confluentinc/cp-kafka:6.2.0
     depends_on:
@@ -79,4 +89,10 @@ services:
 
       echo -e 'Successfully created the following topics:'
       kafka-topics --bootstrap-server broker:29092 --list
+
+      echo -e 'Creating connector for orders SQL table'
+      curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" debezium:8083/connectors/ -d '{\"name\":\"grocerydeliveryservicedb-connector\",\"config\":{\"connector.class\":\"io.debezium.connector.postgresql.PostgresConnector\",\"plugin.name\":\"pgoutput\",\"database.hostname\":\"postgres_db\",\"database.port\":\"5432\",\"database.user\":\"testuser\",\"database.password\":\"password\",\"database.dbname\":\"grocerydeliveryservicedb\",\"database.server.name\":\"postgres_db\",\"table.include.list\":\"public.orders\"}}'
+
+      echo -e 'Successfully created the following connectors'
+      curl -H "Accept:application/json" debezium:8083/connectors/
       "
