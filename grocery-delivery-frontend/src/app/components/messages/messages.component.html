@@ -1,0 +1,12 @@
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let message of messages$ | async">
+    {{ message }}
+  </li>
+  <div
+    class="alert alert-info"
+    role="alert"
+    *ngIf="!(messages$ | async)?.length"
+  >
+    No Order Confirmation Messages Have Been Received
+  </div>
+</ul>

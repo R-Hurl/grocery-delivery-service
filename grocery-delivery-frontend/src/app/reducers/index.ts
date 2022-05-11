@@ -4,12 +4,14 @@ import * as fromCategories from './categories.reducer';
 import * as fromProducts from './products.reducer';
 import * as fromCart from './cart.reducer';
 import * as fromOrder from './orders.reducer';
+import * as fromOrderConfirmation from './order-confirmation.reducer';
 
 export interface AppState {
   categories: fromCategories.CategoriesState;
   products: fromProducts.ProductsState;
   cart: fromCart.CartState;
   orders: fromOrder.OrdersState;
+  orderConfirmation: fromOrderConfirmation.OrderConfirmationState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -17,6 +19,7 @@ export const reducers: ActionReducerMap<AppState> = {
   products: fromProducts.reducer,
   cart: fromCart.reducer,
   orders: fromOrder.reducer,
+  orderConfirmation: fromOrderConfirmation.reducer,
 };
 
 // Categories
@@ -99,4 +102,18 @@ export const selectOrderBranch = (state: AppState) => state.orders;
 export const selectOrderNumber = createSelector(
   selectOrderBranch,
   (orderBranch) => orderBranch.orderNumber
+);
+
+// Order Confirmation Selectors
+const selectOrderConfirmationBranch = (state: AppState) =>
+  state.orderConfirmation;
+
+export const selectOrderConfirmationMessages = createSelector(
+  selectOrderConfirmationBranch,
+  (orderConfirmationBranch) => orderConfirmationBranch.messages
+);
+
+export const selectNumberOfOrderConfirmationMessages = createSelector(
+  selectOrderConfirmationMessages,
+  (messages) => messages.length
 );

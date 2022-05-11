@@ -21,6 +21,7 @@ import { OrderHistoryComponent } from './components/order-history/order-history.
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { OrderHistoryComponentStore } from './components/order-history/order-history-component-store.service';
 import { OrderDetailsComponentStore } from './components/order-details/order-details-component-store.service';
+import { MessagesComponent } from './components/messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { OrderDetailsComponentStore } from './components/order-details/order-det
     OrderConfirmationComponent,
     OrderHistoryComponent,
     OrderDetailsComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,

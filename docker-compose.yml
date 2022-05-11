@@ -29,6 +29,15 @@ services:
       dockerfile: Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
+  orderconfirmationconsumer:
+    image: orderconfirmationconsumer:latest
+    ports:
+      - "5001:80"
+    build:
+      context: order-confirmation-consumer
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
   pendingordersgrpc:
     image: pendingordersgrpc:latest
     ports:
@@ -71,7 +80,7 @@ services:
       GROUP_ID: 1
       CONFIG_STORAGE_TOPIC: connect_configs
       OFFSET_STORAGE_TOPIC: connect_offsets
-    depends_on: [broker]
+    depends_on: [ broker ]
     ports:
       - 8083:8083
   init_kafka:
@@ -85,7 +94,7 @@ services:
       kafka-topics --bootstrap-server broker:29092 --list
 
       echo -e 'Creating Kafka Topics'
-      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic orders
+      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic orders --partitions 4
 
       echo -e 'Successfully created the following topics:'
       kafka-topics --bootstrap-server broker:29092 --list
