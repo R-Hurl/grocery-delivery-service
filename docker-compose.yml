@@ -38,6 +38,15 @@ services:
       dockerfile: Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
+  deliveryschedulerconsumer:
+    image: deliveryschedulerconsumer:latest
+    ports:
+      - "5002:80"
+    build:
+      context: delivery-scheduler-consumer
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
   pendingordersgrpc:
     image: pendingordersgrpc:latest
     ports:
