@@ -6,7 +6,7 @@
         <div class="left-justified">
           <p><span>Order Number:</span>{{ order?.orderId }}</p>
           <p><span>Total:</span>{{ order?.total | currency }}</p>
-          <p><span>Status:</span>{{ order?.orderStatus }}</p>
+          <p><span>Status:</span>{{ order?.orderStatus | orderStatus }}</p>
         </div>
         <a [routerLink]="['/orders', order?.orderId]">View Order Details</a>
       </li>

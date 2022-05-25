@@ -22,6 +22,7 @@ import { OrderDetailsComponent } from './components/order-details/order-details.
 import { OrderHistoryComponentStore } from './components/order-history/order-history-component-store.service';
 import { OrderDetailsComponentStore } from './components/order-details/order-details-component-store.service';
 import { MessagesComponent } from './components/messages/messages.component';
+import { OrderStatusPipe } from './pipes/order-status.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MessagesComponent } from './components/messages/messages.component';
     OrderHistoryComponent,
     OrderDetailsComponent,
     MessagesComponent,
+    OrderStatusPipe,
   ],
   imports: [
     BrowserModule,

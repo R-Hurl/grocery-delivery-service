@@ -6,12 +6,7 @@
       [routerLink]="['messages']"
       [routerLinkActive]="['active']"
       >Messages
-      <span
-        *ngIf="((numberOfMessages$ | async) || 0) > 0"
-        class="position-relative top-0 start-0 translate-middle badge rounded-pill bg-danger"
-        >{{ numberOfMessages$ | async }}</span
-      ></a
-    >
+    </a>
   </li>
   <li class="nav-item">
     <a
