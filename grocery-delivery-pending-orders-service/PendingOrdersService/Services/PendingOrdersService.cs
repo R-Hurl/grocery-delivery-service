@@ -20,7 +20,7 @@ namespace PendingOrdersService.Services
             _logger = logger;
         }
 
-        public override Task<PendingOrderReply> RegisterPendingOrder(PendingOrderRequest request, ServerCallContext context)
+        public override async Task<PendingOrderReply> RegisterPendingOrder(PendingOrderRequest request, ServerCallContext context)
         {
             _logger.LogInformation($"Successfully called GRPC PendingOrdersService with the following request: {JsonSerializer.Serialize(request)}");
             var pendingOrderReply = new PendingOrderReply { Success = false };
@@ -35,6 +35,7 @@ namespace PendingOrdersService.Services
                     Total = (decimal)request.Order.Total
                 };
                 _unitOfWork.Orders.Insert(order);
+                await _unitOfWork.CompleteAsync();
 
                 var orderItems = new List<Models.OrderItem>();
                 foreach (var cartItem in request.Order.Cart)
@@ -47,8 +48,7 @@ namespace PendingOrdersService.Services
                     });
                 }
                 _unitOfWork.OrderItems.InsertRange(orderItems);
-
-                _unitOfWork.CompleteAsync();
+                await _unitOfWork.CompleteAsync();
 
                 pendingOrderReply.Success = true;
             }
@@ -57,7 +57,7 @@ namespace PendingOrdersService.Services
                 _logger.LogError(new EventId(1000, "RegisterPendingOrderException"), ex, "Exception Occurred Attempting to Register Pending Grocery Deliver Order", request);
             }
 
-            return Task.FromResult<PendingOrderReply>(pendingOrderReply);
+            return pendingOrderReply;
         }
     }
 }
