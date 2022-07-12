@@ -33,3 +33,7 @@ footer {
 div.alert {
   margin-top: 15px;
 }
+
+.input-group {
+  flex-wrap: nowrap;
+}
