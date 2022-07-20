@@ -6,34 +6,33 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace GroceryDeliveryOrdersConsumer
+namespace GroceryDeliveryOrdersConsumer;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureServices((hostContext, services) =>
-                {
-                    var config = new ConsumerConfig
-                    {
-                        BootstrapServers = "broker:29092",
-                        EnableAutoCommit = false,
-                        GroupId = "order-consumers",
-                        AutoOffsetReset = AutoOffsetReset.Earliest
-                    };
-                    var consumer = new ConsumerBuilder<string, string>(config).Build();
-                    consumer.Subscribe("orders");
-
-                    services.AddTransient<IPendingOrdersService, PendingOrdersService>();
-                    services.AddAutoMapper(typeof(OrderProfile));
-                    services.AddHostedService(sp => new OrdersConsumerService(sp.GetRequiredService<ILogger<OrdersConsumerService>>(), consumer,
-                        sp.GetRequiredService<IPendingOrdersService>(), sp.GetRequiredService<IMapper>()));
-
-                });
+        CreateHostBuilder(args).Build().Run();
     }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureServices((hostContext, services) =>
+            {
+                var config = new ConsumerConfig
+                {
+                    BootstrapServers = "broker:29092",
+                    EnableAutoCommit = false,
+                    GroupId = "order-consumers",
+                    AutoOffsetReset = AutoOffsetReset.Earliest
+                };
+                var consumer = new ConsumerBuilder<string, string>(config).Build();
+                consumer.Subscribe("orders");
+
+                services.AddTransient<IPendingOrdersService, PendingOrdersService>();
+                services.AddAutoMapper(typeof(OrderProfile));
+                services.AddHostedService(sp => new OrdersConsumerService(sp.GetRequiredService<ILogger<OrdersConsumerService>>(), consumer,
+                    sp.GetRequiredService<IPendingOrdersService>(), sp.GetRequiredService<IMapper>()));
+
+            });
 }
