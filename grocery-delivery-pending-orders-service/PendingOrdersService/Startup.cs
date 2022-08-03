@@ -9,52 +9,51 @@ using PendingOrdersService.DAL;
 using PendingOrdersService.DAL.Repositories;
 using PendingOrdersService.DAL.Repositories.Interfaces;
 
-namespace PendingOrdersService
+namespace PendingOrdersService;
+
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
+        Configuration = configuration;
+    }
+
+    public IConfiguration Configuration { get; }
+
+    // This method gets called by the runtime. Use this method to add services to the container.
+    // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddGrpc();
+
+        // Entity Framework
+        services.AddDbContext<PendingOrdersServiceDBContext>(options =>
         {
-            Configuration = configuration;
+            options.UseNpgsql(Configuration.GetConnectionString("GroceryDeliveryServiceDB"));
+        });
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+    }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
         }
 
-        public IConfiguration Configuration { get; }
+        app.UseRouting();
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        app.UseEndpoints(endpoints =>
         {
-            services.AddGrpc();
+            endpoints.MapGrpcService<GreeterService>();
+            endpoints.MapGrpcService<PendingOrdersService.Services.PendingOrdersService>();
 
-            // Entity Framework
-            services.AddDbContext<PendingOrdersServiceDBContext>(options =>
+            endpoints.MapGet("/", async context =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("GroceryDeliveryServiceDB"));
+                await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
             });
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGrpcService<GreeterService>();
-                endpoints.MapGrpcService<PendingOrdersService.Services.PendingOrdersService>();
-
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
-                });
-            });
-        }
+        });
     }
 }
