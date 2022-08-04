@@ -1,8 +1,36 @@
-# grocery-delivery-service (Work in Progress)
+# grocery-delivery-service
 
-Architecture:
+## Introduction
 
-![image](https://user-images.githubusercontent.com/35512365/160915627-11f4ec95-5181-4184-a972-98800e55a289.png)
+This repository holds a distributed microservice application for a grocery delivery service that includes the following applications:
+
+1. `grocery-delivery-frontend`
+   - An Angular SPA application
+
+2. `GroceryDeliveryAPI`
+   - .NET 6 API that interacts with the front end application with the following endpoints:
+     - *GET* `api/products/{categoryId}`
+       - Retrieves grocery products from PostgresSQL database by a given category
+     - *GET* `api/categories`
+       - Retrieves all the available categories from the PostgresSQL database
+     - *GET* `api/orders`
+       - Retrieves all the orders that a client has placed
+     - *POST* `api/orders`
+       - Submits a pending grocery delivery through the system and returns an order number
+
+3. `Order Confirmation Consumer`
+   - .NET 6 Background Service Kafka Consumer application that reads from a Kafka Topic for Pending Orders that were placed and sends a confirmation message to the client via a _*SignalR*_ connection.
+
+4. `Grocery Delivery Consumer`
+   - .NET 6 Background Service Kafka Consumer application that reads from a Kafka Topic for Pending Orders that were placed and calls the Pending Orders gRPC service to schedule a pending order for delivery.
+
+5. `Pending Orders Service`
+   - .NET 6 gRPC service that takes a pending order and inserts it into the database.
+
+6. `Delivery Scheduler Consumer`
+   - .NET 6 Kafka Consumer application that reads messages from a Debezium PostgresSQL Kafka Topic for all the orders that are scheduled for delivery and sets a flag in the database marking an order as delivered.
+
+## Architecture:
 
 ```mermaid
 flowchart LR;
