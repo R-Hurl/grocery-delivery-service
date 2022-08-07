@@ -79,3 +79,23 @@ flowchart LR;
     subgraph DeliverySchedulerConsumer;
     end;
 ```
+
+## How to Run
+
+### Backend
+1. With Docker running, navigate to the root folder (grocery-deliver-service) where the `docker-compose.yml` file is located.
+2. Run the following command in the terminal to spin up the backend:
+   ```
+   docker-compose up -d --build
+   ```
+
+### Frontend
+1. From a terminal, navigate to the following folder `grocery-delivery-frontend`
+2. You must have Angular CLI installed. If you do not, run the following npm command to download it:
+   ```
+   npm install -g @angular/cli
+   ```
+3. From within the `grocery-delivery-frontent` directory, run the following command:
+   ```
+   ng serve -o
+   ```
