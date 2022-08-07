@@ -49,6 +49,8 @@ flowchart LR;
     orderConfirmationConsumer --> request;
     database --> KafkaConnector;
     KafkaConnector --> deliveredOrdersTopic;
+    deliveredOrdersTopic --> DeliverySchedulerConsumer;
+    DeliverySchedulerConsumer --> database;
 
     database[(Database)];
     pendingOrdersTopic{Pending Orders Kafka Topic};
@@ -73,5 +75,7 @@ flowchart LR;
     orderConfirmationConsumer(Order Confirmation Kafka Consumer);
     end;
     subgraph KafkaConnector;
+    end;
+    subgraph DeliverySchedulerConsumer;
     end;
 ```
